@@ -1,0 +1,44 @@
+
+<h2>Dynamic columns  </h2>
+
+<input type="file" #inputFile (change)="onFileChange($event)" multiple="false" />
+  <!-- <div style="border: 1px solid gray;height: calc(100vh - 175px);position: relative;overflow: scroll;margin: 10px 0;">
+     <table class="sjs-table">
+    <tr *ngFor="let row of data">
+      <td *ngFor="let val of row">
+        {{val}}
+      </td>
+    </tr>
+  </table> 
+  
+  </div> -->
+  <div style="border: 1px solid gray;height: calc(100vh - 285px);position: relative;overflow: scroll;margin: 10px 0;">
+  <data-table
+    [items]="data"
+    [pagination]="false"
+    [indexColumn]="false"
+    [selectColumn]="false"
+    [multiSelect]="false"
+    [rowColors]="rowColors"
+    [autoReload]="true"
+    >
+    <span  *ngFor="let val of dataHeaderJSON">
+      <data-table-column
+      property="{{val.datafield}}" styleClass="{{val.selected}}"
+      header="{{val.datafield}}">
+      <ng-template #dataTableHeader>
+        <button (click)="itemHandler(val)" style="width:100%;color:blue" class="btn btn-sm btn-default">{{val.title}}</button>
+      </ng-template>
+      </data-table-column>
+    </span>
+    </data-table>
+  </div>
+  <div style="border: 1px solid gray;height: calc(100vh - 500px);position: relative;overflow: scroll;margin: 10px 0;">
+    <div class="col-md-12" style="margin:10px;text-align: center" *ngFor="let col of existedColumns" [ngClass]="(col.selected)?'columnSelected':'none'"><label>{{col.label}}</label></div>
+  </div>
+  <button (click)="new()">New</button>
+  <button (click)="reset()">Reset</button>
+
+  <button (click)="save()">Save</button>
+  <button (click)="export()">Export!</button>
+
